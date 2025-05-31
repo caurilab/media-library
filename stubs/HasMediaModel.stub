@@ -1,0 +1,93 @@
+<?php
+
+namespace {{ namespace }};
+
+use Illuminate\Database\Eloquent\Model;
+use Cauri\MediaLibrary\Models\Concerns\HasMedia;
+use Cauri\MediaLibrary\Models\Media;
+
+class {{ class }} extends Model
+{
+    use HasMedia;
+
+    protected $fillable = [
+        // Ajoute ici les champs fillable de ton modèle
+    ];
+
+    /**
+     * Définir les collections de médias pour ce modèle
+     */
+    public function registerMediaCollections(): void
+    {
+        // Collection par défaut
+        $this->addMediaCollection('default');
+
+        // Collection pour les images de galerie
+        $this->addMediaCollection('gallery')
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp']);
+
+        // Collection pour les documents (un seul fichier)
+        $this->addMediaCollection('documents')
+            ->acceptsMimeTypes(['application/pdf'])
+            ->singleFile();
+
+        // Collection pour l'avatar (un seul fichier)
+        $this->addMediaCollection('avatar')
+            ->acceptsMimeTypes(['image/jpeg', 'image/png'])
+            ->singleFile();
+    }
+
+    /**
+     * Définir les conversions d'images pour ce modèle
+     */
+    public function registerMediaConversions(?Media $media = null): void
+    {
+        // Conversion pour les miniatures
+        $this->addMediaConversion('thumb')
+            ->width(150)
+            ->height(150)
+            ->quality(80)
+            ->format('webp')
+            ->fit('crop');
+
+        // Conversion pour les images moyennes
+        $this->addMediaConversion('medium')
+            ->width(500)
+            ->height(500)
+            ->quality(85)
+            ->format('webp')
+            ->fit('contain');
+
+        // Conversion pour les grandes images
+        $this->addMediaConversion('large')
+            ->width(1200)
+            ->height(1200)
+            ->quality(90)
+            ->format('webp')
+            ->fit('contain');
+    }
+
+    /**
+     * Helper: Obtenir l'URL de l'avatar
+     */
+    public function getAvatarUrl(string $conversion = ''): string
+    {
+        return $this->getFirstMediaUrl('avatar', $conversion);
+    }
+
+    /**
+     * Helper: Obtenir toutes les images de galerie
+     */
+    public function getGalleryImages()
+    {
+        return $this->getMedia('gallery');
+    }
+
+    /**
+     * Helper: Obtenir l'URL du premier document
+     */
+    public function getDocumentUrl(): string
+    {
+        return $this->getFirstMediaUrl('documents');
+    }
+}

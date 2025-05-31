@@ -1,0 +1,123 @@
+/* Base styles for CAURI Media Library */
+.cauri-media-uploader,
+.media-gallery,
+.media-item,
+.media-modal {
+  box-sizing: border-box;
+}
+
+.cauri-media-uploader *,
+.media-gallery *,
+.media-item *,
+.media-modal * {
+  box-sizing: border-box;
+}
+
+/* Custom scrollbar */
+.media-gallery::-webkit-scrollbar,
+.modal-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.media-gallery::-webkit-scrollbar-track,
+.modal-body::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.media-gallery::-webkit-scrollbar-thumb,
+.modal-body::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.media-gallery::-webkit-scrollbar-thumb:hover,
+.modal-body::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { 
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.modal-overlay {
+  animation: fadeIn 0.2s ease-out;
+}
+
+.modal-container {
+  animation: slideIn 0.3s ease-out;
+}
+
+.media-item {
+  animation: slideIn 0.2s ease-out;
+}
+
+.loading-spinner {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Responsive utilities */
+@media (max-width: 640px) {
+  .gallery-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .gallery-filters {
+    flex-direction: column;
+    space-y: 2;
+  }
+  
+  .modal-container {
+    margin: 1rem;
+    max-height: calc(100vh - 2rem);
+  }
+  
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .url-item {
+    flex-direction: column;
+    align-items: stretch;
+    space-x: 0;
+    space-y: 1;
+  }
+}
+
+/* Focus styles for accessibility */
+.upload-zone:focus-within,
+.media-item:focus-within,
+.action-button:focus,
+.selection-checkbox:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+  .modal-overlay,
+  .gallery-filters,
+  .selection-actions,
+  .pagination {
+    display: none !important;
+  }
+}

@@ -1,0 +1,482 @@
+/* CAURI Media Library - Styles globaux */
+
+/* Variables CSS */
+:root {
+    --cauri-primary: #3b82f6;
+    --cauri-primary-dark: #2563eb;
+    --cauri-secondary: #6b7280;
+    --cauri-success: #10b981;
+    --cauri-error: #ef4444;
+    --cauri-warning: #f59e0b;
+    --cauri-border: #d1d5db;
+    --cauri-border-light: #e5e7eb;
+    --cauri-bg-light: #f9fafb;
+    --cauri-text: #111827;
+    --cauri-text-light: #6b7280;
+    --cauri-radius: 0.5rem;
+    --cauri-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    --cauri-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  }
+  
+  /* Base reset pour les composants CAURI */
+  .cauri-media-uploader *,
+  .media-gallery *,
+  .media-item *,
+  .media-modal * {
+    box-sizing: border-box;
+  }
+  
+  /* Utilitaires globaux */
+  .cauri-fade-enter-active,
+  .cauri-fade-leave-active {
+    transition: opacity 0.3s ease;
+  }
+  
+  .cauri-fade-enter-from,
+  .cauri-fade-leave-to {
+    opacity: 0;
+  }
+  
+  .cauri-slide-up-enter-active,
+  .cauri-slide-up-leave-active {
+    transition: all 0.3s ease;
+  }
+  
+  .cauri-slide-up-enter-from,
+  .cauri-slide-up-leave-to {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  
+  .cauri-slide-down-enter-active,
+  .cauri-slide-down-leave-active {
+    transition: all 0.3s ease;
+  }
+  
+  .cauri-slide-down-enter-from,
+  .cauri-slide-down-leave-to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  
+  /* Scrollbar personnalisée */
+  .cauri-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  
+  .cauri-scrollbar::-webkit-scrollbar-track {
+    background: var(--cauri-bg-light);
+    border-radius: 3px;
+  }
+  
+  .cauri-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--cauri-secondary);
+    border-radius: 3px;
+  }
+  
+  .cauri-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: var(--cauri-text-light);
+  }
+  
+  /* Loading spinner */
+  .cauri-spinner {
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid var(--cauri-border-light);
+    border-top: 2px solid var(--cauri-primary);
+    border-radius: 50%;
+    animation: cauri-spin 1s linear infinite;
+  }
+  
+  @keyframes cauri-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  /* Boutons */
+  .cauri-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: var(--cauri-radius);
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border: 1px solid transparent;
+    text-decoration: none;
+  }
+  
+  .cauri-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  .cauri-btn-primary {
+    background-color: var(--cauri-primary);
+    color: white;
+  }
+  
+  .cauri-btn-primary:hover:not(:disabled) {
+    background-color: var(--cauri-primary-dark);
+  }
+  
+  .cauri-btn-secondary {
+    background-color: var(--cauri-secondary);
+    color: white;
+  }
+  
+  .cauri-btn-secondary:hover:not(:disabled) {
+    background-color: #4b5563;
+  }
+  
+  .cauri-btn-danger {
+    background-color: var(--cauri-error);
+    color: white;
+  }
+  
+  .cauri-btn-danger:hover:not(:disabled) {
+    background-color: #dc2626;
+  }
+  
+  .cauri-btn-outline {
+    background-color: transparent;
+    border-color: var(--cauri-border);
+    color: var(--cauri-text);
+  }
+  
+  .cauri-btn-outline:hover:not(:disabled) {
+    background-color: var(--cauri-bg-light);
+  }
+  
+  /* Inputs */
+  .cauri-input {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--cauri-border);
+    border-radius: var(--cauri-radius);
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+  }
+  
+  .cauri-input:focus {
+    outline: none;
+    border-color: var(--cauri-primary);
+    box-shadow: 0 0 0 3px rgb(59 130 246 / 0.1);
+  }
+  
+  .cauri-input:disabled {
+    background-color: var(--cauri-bg-light);
+    color: var(--cauri-text-light);
+    cursor: not-allowed;
+  }
+  
+  /* Select */
+  .cauri-select {
+    width: 100%;
+    padding: 0.5rem 2rem 0.5rem 0.75rem;
+    border: 1px solid var(--cauri-border);
+    border-radius: var(--cauri-radius);
+    font-size: 0.875rem;
+    background-color: white;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 0.5rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+    appearance: none;
+  }
+  
+  .cauri-select:focus {
+    outline: none;
+    border-color: var(--cauri-primary);
+    box-shadow: 0 0 0 3px rgb(59 130 246 / 0.1);
+  }
+  
+  /* Checkbox */
+  .cauri-checkbox {
+    width: 1rem;
+    height: 1rem;
+    color: var(--cauri-primary);
+    background-color: white;
+    border: 1px solid var(--cauri-border);
+    border-radius: 0.25rem;
+    cursor: pointer;
+  }
+  
+  .cauri-checkbox:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgb(59 130 246 / 0.1);
+  }
+  
+  /* Badge */
+  .cauri-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    border-radius: 9999px;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+  }
+  
+  .cauri-badge-primary {
+    background-color: var(--cauri-primary);
+    color: white;
+  }
+  
+  .cauri-badge-secondary {
+    background-color: var(--cauri-bg-light);
+    color: var(--cauri-text-light);
+  }
+  
+  .cauri-badge-success {
+    background-color: var(--cauri-success);
+    color: white;
+  }
+  
+  .cauri-badge-error {
+    background-color: var(--cauri-error);
+    color: white;
+  }
+  
+  /* Tooltip */
+  .cauri-tooltip {
+    position: relative;
+  }
+  
+  .cauri-tooltip::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.5rem;
+    background-color: var(--cauri-text);
+    color: white;
+    font-size: 0.75rem;
+    border-radius: var(--cauri-radius);
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    z-index: 1000;
+  }
+  
+  .cauri-tooltip:hover::before {
+    opacity: 1;
+  }
+  
+  /* Progress bar */
+  .cauri-progress {
+    width: 100%;
+    height: 0.5rem;
+    background-color: var(--cauri-bg-light);
+    border-radius: 9999px;
+    overflow: hidden;
+  }
+  
+  .cauri-progress-bar {
+    height: 100%;
+    background-color: var(--cauri-primary);
+    border-radius: 9999px;
+    transition: width 0.3s ease;
+  }
+  
+  /* Alert */
+  .cauri-alert {
+    padding: 1rem;
+    border-radius: var(--cauri-radius);
+    border: 1px solid;
+  }
+  
+  .cauri-alert-success {
+    background-color: #ecfdf5;
+    border-color: #10b981;
+    color: #065f46;
+  }
+  
+  .cauri-alert-error {
+    background-color: #fef2f2;
+    border-color: #ef4444;
+    color: #991b1b;
+  }
+  
+  .cauri-alert-warning {
+    background-color: #fffbeb;
+    border-color: #f59e0b;
+    color: #92400e;
+  }
+  
+  .cauri-alert-info {
+    background-color: #eff6ff;
+    border-color: var(--cauri-primary);
+    color: #1e40af;
+  }
+  
+  /* Card */
+  .cauri-card {
+    background-color: white;
+    border-radius: var(--cauri-radius);
+    box-shadow: var(--cauri-shadow);
+    border: 1px solid var(--cauri-border-light);
+  }
+  
+  .cauri-card-header {
+    padding: 1.5rem 1.5rem 0;
+  }
+  
+  .cauri-card-body {
+    padding: 1.5rem;
+  }
+  
+  .cauri-card-footer {
+    padding: 0 1.5rem 1.5rem;
+  }
+  
+  /* Modal backdrop */
+  .cauri-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background-color: rgb(0 0 0 / 0.5);
+    z-index: 9999;
+  }
+  
+  /* Grid responsive */
+  .cauri-grid {
+    display: grid;
+    gap: 1rem;
+  }
+  
+  .cauri-grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  
+  .cauri-grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  
+  .cauri-grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  
+  .cauri-grid-cols-6 {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+  
+  /* Media queries pour responsive */
+  @media (max-width: 640px) {
+    .cauri-grid-cols-2 {
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+    
+    .cauri-grid-cols-4 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    
+    .cauri-grid-cols-6 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .cauri-grid-cols-6 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  
+  @media (max-width: 1024px) {
+    .cauri-grid-cols-6 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+  
+  /* Animations personnalisées */
+  @keyframes cauri-pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+  
+  .cauri-pulse {
+    animation: cauri-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  @keyframes cauri-bounce {
+    0%, 100% {
+      transform: translateY(-25%);
+      animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+    }
+    50% {
+      transform: translateY(0);
+      animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    }
+  }
+  
+  .cauri-bounce {
+    animation: cauri-bounce 1s infinite;
+  }
+  
+  /* Print styles */
+  @media print {
+    .cauri-no-print {
+      display: none !important;
+    }
+    
+    .cauri-card {
+      break-inside: avoid;
+    }
+  }
+  
+  /* High contrast mode */
+  @media (prefers-contrast: high) {
+    :root {
+      --cauri-border: #000000;
+      --cauri-text: #000000;
+      --cauri-bg-light: #ffffff;
+    }
+  }
+  
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+  
+  /* Dark mode support */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --cauri-primary: #60a5fa;
+      --cauri-primary-dark: #3b82f6;
+      --cauri-secondary: #9ca3af;
+      --cauri-border: #374151;
+      --cauri-border-light: #4b5563;
+      --cauri-bg-light: #1f2937;
+      --cauri-text: #f9fafb;
+      --cauri-text-light: #d1d5db;
+    }
+    
+    .cauri-card {
+      background-color: #1f2937;
+      border-color: #374151;
+    }
+    
+    .cauri-input,
+    .cauri-select {
+      background-color: #1f2937;
+      border-color: #374151;
+      color: #f9fafb;
+    }
+    
+    .cauri-modal-backdrop {
+      background-color: rgb(0 0 0 / 0.8);
+    }
+  }

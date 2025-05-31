@@ -1,0 +1,172 @@
+<?php
+
+namespace {{ namespace }};
+
+use Cauri\MediaLibrary\Models\Concerns\HasMedia;
+use Cauri\MediaLibrary\Models\Media;
+
+/**
+ * Trait pour définir des conversions personnalisées
+ * Utilise ce trait dans tes modèles qui ont besoin de conversions spécifiques
+ */
+trait {{ class }}
+{
+    use HasMedia;
+
+    /**
+     * Définir les conversions d'images
+     */
+    public function registerMediaConversions(?Media $media = null): void
+    {
+        // Miniatures carrées
+        $this->addMediaConversion('thumb')
+            ->width(150)
+            ->height(150)
+            ->quality(80)
+            ->format('webp')
+            ->fit('crop')
+            ->nonQueued(); // Générer immédiatement
+
+        // Images pour cartes/grilles
+        $this->addMediaConversion('card')
+            ->width(300)
+            ->height(200)
+            ->quality(85)
+            ->format('webp')
+            ->fit('crop');
+
+        // Images moyennes pour affichage détaillé
+        $this->addMediaConversion('medium')
+            ->width(800)
+            ->height(600)
+            ->quality(85)
+            ->format('webp')
+            ->fit('contain');
+
+        // Images larges pour bannières/héros
+        $this->addMediaConversion('large')
+            ->width(1200)
+            ->height(800)
+            ->quality(90)
+            ->format('webp')
+            ->fit('contain');
+
+        // Images full HD pour affichage plein écran
+        $this->addMediaConversion('fullhd')
+            ->width(1920)
+            ->height(1080)
+            ->quality(92)
+            ->format('webp')
+            ->fit('contain');
+
+        // Version réduite pour les aperçus rapides
+        $this->addMediaConversion('preview')
+            ->width(400)
+            ->height(300)
+            ->quality(75)
+            ->format('webp')
+            ->fit('contain')
+            ->nonQueued();
+
+        // Version optimisée pour le web
+        $this->addMediaConversion('web')
+            ->width(1000)
+            ->height(750)
+            ->quality(88)
+            ->format('webp')
+            ->fit('contain');
+    }
+
+    /**
+     * Définir les collections de médias
+     */
+    public function registerMediaCollections(): void
+    {
+        // Collection principale pour les images
+        $this->addMediaCollection('images')
+            ->acceptsMimeTypes([
+                'image/jpeg',
+                'image/png', 
+                'image/gif',
+                'image/webp'
+            ]);
+
+        // Collection pour la galerie
+        $this->addMediaCollection('gallery')
+            ->acceptsMimeTypes([
+                'image/jpeg',
+                'image/png',
+                'image/webp'
+            ]);
+
+        // Collection pour les miniatures/avatars
+        $this->addMediaCollection('thumbnails')
+            ->acceptsMimeTypes([
+                'image/jpeg',
+                'image/png',
+                'image/webp'
+            ])
+            ->singleFile();
+
+        // Collection pour les documents
+        $this->addMediaCollection('documents')
+            ->acceptsMimeTypes([
+                'application/pdf',
+                'application/msword',
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+            ]);
+
+        // Collection pour les vidéos
+        $this->addMediaCollection('videos')
+            ->acceptsMimeTypes([
+                'video/mp4',
+                'video/webm',
+                'video/quicktime'
+            ]);
+    }
+
+    /**
+     * Helper: Obtenir l'URL d'une image avec fallback
+     */
+    public function getImageUrl(string $collection = 'images', string $conversion = 'medium'): string
+    {
+        $url = $this->getFirstMediaUrl($collection, $conversion);
+        
+        // Fallback vers une image par défaut si aucune image trouvée
+        return $url ?: asset('images/placeholder.jpg');
+    }
+
+    /**
+     * Helper: Obtenir toutes les URLs d'une collection avec conversions
+     */
+    public function getImagesWithConversions(string $collection = 'gallery'): array
+    {
+        return $this->getMedia($collection)->map(function ($media) {
+            return [
+                'id' => $media->id,
+                'name' => $media->name,
+                'original' => $media->getUrl(),
+                'thumb' => $media->getUrl('thumb'),
+                'medium' => $media->getUrl('medium'),
+                'large' => $media->getUrl('large'),
+                'alt' => $media->getCustomProperty('alt', $media->name),
+            ];
+        })->toArray();
+    }
+
+    /**
+     * Helper: Vérifier si le modèle a des images
+     */
+    public function hasImages(string $collection = 'images'): bool
+    {
+        return $this->getMedia($collection)->isNotEmpty();
+    }
+
+    /**
+     * Helper: Compter les médias dans une collection
+     */
+    public function getMediaCount(string $collection = 'default'): int
+    {
+        return $this->getMedia($collection)->count();
+    }
+}
