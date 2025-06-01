@@ -61,9 +61,9 @@ class CauriMediaLibraryServiceProvider extends ServiceProvider
                 __DIR__.'/../resources/css/' => resource_path('css/cauri-media'),
             ], 'cauri-media-css');
 
-            $this->publishes([
-                __DIR__.'/../resources/views/' => resource_path('views/vendor/cauri-media'),
-            ], 'cauri-media-views');
+            // $this->publishes([
+            //     __DIR__.'/../resources/views/' => resource_path('views/vendor/cauri-media'),
+            // ], 'cauri-media-views');
 
             $this->publishes([
                 __DIR__.'/../stubs/' => base_path('stubs/cauri-media'),
